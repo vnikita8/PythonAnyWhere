@@ -10,9 +10,15 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
+@app.callback(Output('page-content', 'children'),
+              Input('url', 'pathname'))
 
+def display_page(pathname):
+    if pathname == '/home' or pathname == '/':
+        return home.layout
 @app.callback(
     Output('output_str', 'children'),
+    Output('output_accuracy', 'children'),
     Input("main_button", "n_clicks"),
     State('smoking', 'value'),
     State('IL1b', 'value'),
@@ -26,21 +32,16 @@ app.layout = html.Div([
 )
 
 def update_output(clicks, *kwargs):
-    if clicks is not None:
-        helper = AI_Help(kwargs[0], kwargs[1], kwargs[2], kwargs[3], kwargs[4], kwargs[5], kwargs[6], kwargs[7], kwargs[8])
+    if clicks is not None or clicks != 0:
+        smoking = "н" if kwargs[0]=="Нет" else "к"
+        helper = AI_Help(smoking, kwargs[1], kwargs[2], kwargs[3], kwargs[4], kwargs[5], kwargs[6], kwargs[7], kwargs[8])
         result = helper.go_train()
         res_str = "имеется предрасположенность к раку" if result[0] == 1 else "предрасположенности к раку нет"
-        return f"Результат: {res_str}<br />Точность: {result[1]}"
+        return [f"Результат: {res_str}", f"Точность: {result[1]}"]
     else:
         return "Error"
 
 
-@app.callback(Output('page-content', 'children'),
-              Input('url', 'pathname'))
-
-def display_page(pathname):
-    if pathname == '/home' or pathname == '/':
-        return home.layout
 
 if __name__ == '__main__':
     app.run_server(debug=True)

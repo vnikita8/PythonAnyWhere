@@ -10,19 +10,10 @@ from sklearn.ensemble import ExtraTreesClassifier
 class AI_Help():
     def __init__(self, smoking, il1b, tnf, apex1, xpd, egfr, chek2, tgfb1, ephx1):
        self.df = pd.read_csv("data_rak.csv", delimiter=';').dropna()
-       smoking = smoking
-       IL1b = il1b
-       TNF = tnf
-       APEX1 = apex1
-       XPD = xpd
-       EGFR = egfr
-       CHEK2 = chek2
-       TGFb1 = tgfb1
-       EPHX1 = ephx1
 
        #prognoz data
-       self.predict_df = {"Smoking": [smoking], "IL1b": [IL1b], "TNF": [TNF], "APEX1": [APEX1],
-       "XPD": [XPD], "EGFR":[EGFR], "CHEK2":[CHEK2], "TGFb1":[TGFb1], "EPHX1 ":[EPHX1]}
+       self.predict_df = {"Smoking": [smoking], "IL1b": [il1b], "TNF": [tnf], "APEX1": [apex1],
+       "XPD": [xpd], "EGFR":[egfr], "CHEK2":[chek2], "TGFb1":[tgfb1], "EPHX1 ":[ephx1]}
        self.predict_df = pd.DataFrame(self.predict_df)
 
     def go_train(self, n_jobs = -1,max_depth=5, random_state = 1751, 

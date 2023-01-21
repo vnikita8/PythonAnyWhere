@@ -52,7 +52,8 @@ layout = html.Div([
     ], style=style_for_block),
 
     html.Button("Прогноз..", n_clicks=0, id="main_button", style=style_for_MainButton),
-    html.Div(id="output_str", children='Enter a value and press submit')
+    html.Div(id="output_str", children='Результат: '),
+    html.Div(id="output_accuracy", children='Точность составляет: ')
 ], style={"align-items": "center"})
 
 
