@@ -26,9 +26,7 @@ def update_output(clicks, *kwargs):
         return "Error"
 
 
-
-
-
+#Обновление
 
 
 
